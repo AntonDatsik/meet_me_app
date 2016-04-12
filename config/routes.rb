@@ -1,6 +1,13 @@
 MeetMe::Application.routes.draw do
   resources :users
-  root to: 'users#index'
+  root to: 'static_pages#index'
+
+  resources :sessions, only: [:new, :create, :destroy]
+
+  match '/signin',  to: 'sessions#new',         via: 'get'
+  match '/signout', to: 'sessions#destroy',     via: 'delete'
+  match '/sign_up', to: 'users#new', via: 'get'
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

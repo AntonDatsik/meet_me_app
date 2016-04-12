@@ -2,11 +2,60 @@
 <html>
 <head>
   <title>MeetMe</title>
+  
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  
   <%= csrf_meta_tags %>
 </head>
 <body>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <%= link_to 'Logo', root_path, :class => 'navbar-brand' %>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-left">
+        <li><a href="#about">ABOUT</a></li>
+        <li><a href="#services">SERVICES</a></li>
+        <li><a href="#portfolio">PORTFOLIO</a></li>
+        <li><a href="#pricing">PRICING</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      	<% if signed_in? %>
+      		<li>
+	      		<%= link_to signout_path, method: :delete do %> 
+	      			SIGN OUT
+	      			<i class="fa fa-sign-in fa-1x" aria-hidden="true"></i>
+	      		<% end %>
+	      	</li>
+      	<% else %>
+      		<li>
+	      		<%= link_to signin_path do %>
+	      			SIGN IN
+	      			<i class="fa fa-sign-in fa-1x" aria-hidden="true"></i>
+	      		<% end %>
+	      	</li>
+      	<% end %>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
 
 <%= yield %>
 
